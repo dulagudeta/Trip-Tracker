@@ -15,7 +15,7 @@ class Trip(models.Model):
     
 
     def __str__(self):
-        return f"{self.city} ({self.start_date} to {self.end_date}) by {self.user.username}"
+        return f"{self.city} ({self.start_date})"
     
 class Note(models.Model):
     EXCURSION = (

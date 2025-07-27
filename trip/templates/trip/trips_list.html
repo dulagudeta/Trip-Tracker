@@ -1,0 +1,6 @@
+<h1>My Trips</h1>
+<ul>
+    {% for trip in trips %}
+        <li>{{ trip.city }} - {{ trip.country }}</li>
+    {% endfor %}
+</ul>
