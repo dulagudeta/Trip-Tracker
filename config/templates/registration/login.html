@@ -1,0 +1,17 @@
+{% if form.errors %}
+   <p>Wrong username or password</p>
+{% endif %}
+{% if next %}
+    {if not user.is_authenticated %}
+        <p>You will be redirected to <strong>{{ next }}</strong> after logging in.</p>
+    {% else %}
+        <p>You are already logged in. Redirecting to <strong>{{ next }}</strong>.</p>
+    {% endif %}
+{% endif %}
+
+<form action="{% url 'login' %}" method="post" class="form-horizontal">
+    {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Login" class="btn btn-primary">
+  <input type="hidden" name="next" value="{{ next }}" />
+</form>
