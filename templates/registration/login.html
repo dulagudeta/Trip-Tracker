@@ -7,7 +7,7 @@
     {% else %}
         <p>You are already logged in. Redirecting to <strong>{{ next }}</strong>.</p>
     {% endif %}
-{% endif %}
+
 
 <form action="{% url 'login' %}" method="post" class="form-horizontal">
     {% csrf_token %}
