@@ -1,4 +1,15 @@
 <h1>My Trips</h1>
+{% if user.is_authenticated %} 
+    <p>Welcome, {{ user.username }}!</p>
+{% else %}
+    <p>Please <a href="{% url 'login' %}">log in</a> to see your trips.</p>
+{% endif %}
+
+{% if trips %}
+    <p>You have the following trips:</p>
+{% else %}
+    <p>You have no trips planned.</p>
+{% endif %}
 <ul>
     {% for trip in trips %}
         <li>{{ trip.city }} - {{ trip.country }}</li>
