@@ -1,17 +1,25 @@
-<h1>My Trips</h1>
-{% if user.is_authenticated %} 
-    <p>Welcome, {{ user.username }}!</p>
-{% else %}
-    <p>Please <a href="{% url 'login' %}">log in</a> to see your trips.</p>
-{% endif %}
+{% extends 'trip/_base.html' %}
 
-{% if trips %}
-    <p>You have the following trips:</p>
-{% else %}
-    <p>You have no trips planned.</p>
-{% endif %}
-<ul>
-    {% for trip in trips %}
-        <li>{{ trip.city }} - {{ trip.country }}</li>
-    {% endfor %}
-</ul>
+{% block content %}
+  <h1 class="text-4xl underline underline-offset-4 mb-8">My Trips</h1>
+  {% for trip in trips %}
+    <div class="bg-gray-50 p-10 rounded shadow my-4 hover:shadow-lg hover:cursor-pointer">
+      <p class="text-lg">
+        {{trip.country}} | {{trip.city}}
+      </p>
+      <p class="text-sm pt-4">
+        {% if trip.start_date %}
+          {{ trip.start_date|date:"F jS" }}
+        {% else %}
+          TBA
+        {% endif %}
+        to
+        {% if trip.end_date %}
+          {{ trip.end_date|date:"F jS" }}
+        {% else %}
+          TBA
+        {% endif %}
+      </p>
+    </div>
+  {% endfor %}
+{% endblock content %}
