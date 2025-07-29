@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, CreateView, DetailView
+from django.views.generic import TemplateView, CreateView, DetailView, ListView
 from .models import Trip, Note
 
 # Create your views here.
@@ -41,4 +41,17 @@ class NoteDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['trip'] = self.object.trip
+        return context
+    
+class NoteListView(ListView):
+    model = Note
+    template_name = 'trip/note_list.html'
+    context_object_name = 'notes'
+
+    def get_queryset(self):
+        return Note.objects.filter(trip__owner=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['trips'] = Trip.objects.filter(owner=self.request.user)
         return context
