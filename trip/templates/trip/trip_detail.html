@@ -1,0 +1,26 @@
+{% extends 'trip/_base.html' %}
+
+{% block content %}
+<h1 class="text-4x1 underline underline-offset-4 mb-8">Trip Details</h1>
+    <div class="bg-gray-50 p-8 rounded shadow my-4">
+        <p class="text-2x1">{{trip.country}} | {{trip.city}}</p>
+        <hr class="my-4">
+        <h3 class="text-x1 pb-4">Notes:</h3>
+        <div class="flex gap-2 flex-wrap">
+            {% for note in notes %}
+            <a href="">
+                <div class="border-2 rounded-lg pb-4 hover:shadow">
+                    <img class="w-48 h-32 object-cover overflow-hidden rounded-t-md" src="{{note.img.url}}">
+                    <p class="text-center mt-4 text-lg">{{note.name}}</p>
+                    <p class="text-center mt-2 text-gray-60%">Rating: {{note.rating}}</p>
+                </div>
+         </a>
+         {% endfor %}
+         <a href="">
+            <div class="border-2 border-dashed rounded-lg hover:shadow w-48 h-full flex justify-center">
+                 <p class="">New Note +</p>
+             </div>
+         </a>
+        </div>
+    </div>
+{% endblock content%}

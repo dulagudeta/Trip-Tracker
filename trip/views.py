@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, DetailView
 from .models import Trip, Note
 
 # Create your views here.
@@ -22,3 +22,13 @@ class TripCreateView(CreateView):
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form) 
+
+class TripDetailView(DetailView):
+    model = Trip
+    template_name = 'trip/trip_detail.html'
+    context_object_name = 'trip'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['notes'] = Note.objects.filter(trip=self.object) 
+        return context
