@@ -1,0 +1,11 @@
+{% extends '_base.html' %}
+
+{% block content %}
+<h1 class ="text-4xl underline-offset-4 mb-8">Note Details</h1>
+    <div class="bg-gray-50 p-8 rounded shadow my-4">
+        <p class="text-2x1">{{ note.name }}</p>
+        <p class="text-2x1">Descripyion: {{ note.description }}</p>
+        <p class="text-2x1">Rating: {{ note.rating }}/5</p>
+        <img src="{{ note.image.url }}" alt="{{ note.name }}" >
+    </div>
+{% endblock content %}

@@ -32,3 +32,13 @@ class TripDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['notes'] = Note.objects.filter(trip=self.object) 
         return context
+    
+class NoteDetailView(DetailView):
+    model = Note
+    template_name = 'trip/note_detail.html'
+    context_object_name = 'note'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['trip'] = self.object.trip
+        return context
