@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, CreateView, DetailView, ListView
+from django.views.generic import TemplateView, CreateView, DetailView, ListView , UpdateView ,DeleteView
 from .models import Trip, Note
 
 # Create your views here.
@@ -65,3 +65,18 @@ class NoteCreateView(CreateView):
         form = super(NoteCreateView, self).get_form()
         form.fields['trip'].queryset = Trip.objects.filter(owner=self.request.user)
         return form 
+    
+class NoteUpdateView(UpdateView):
+    model = Note
+    fields = '__all__'
+    success_url = reverse_lazy('note_list')
+    
+    def get_form(self):
+        form = super(NoteUpdateView, self).get_form()
+        form.fields['trip'].queryset = Trip.objects.filter(owner=self.request.user)
+        return form 
+    
+class NoteDeleteview(DeleteView):
+    model = Note
+    success_url = reverse_lazy('note_list')
+    
