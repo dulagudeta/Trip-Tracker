@@ -55,3 +55,13 @@ class NoteListView(ListView):
         context = super().get_context_data(**kwargs)
         context['trips'] = Trip.objects.filter(owner=self.request.user)
         return context
+
+class NoteCreateView(CreateView):
+    model = Note
+    fields = '__all__'
+    success_url = reverse_lazy('note_list')
+    
+    def get_form(self):
+        form = super(NoteCreateView, self).get_form()
+        form.fields['trip'].queryset = Trip.objects.filter(owner=self.request.user)
+        return form 
