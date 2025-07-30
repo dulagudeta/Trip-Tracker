@@ -79,4 +79,17 @@ class NoteUpdateView(UpdateView):
 class NoteDeleteview(DeleteView):
     model = Note
     success_url = reverse_lazy('note_list')
+
+class TripUpdateView(UpdateView):
+    model = Trip
+    fields = ['city', 'country', 'start_date', 'end_date']
+    success_url = reverse_lazy('trip_list')
+class TripDeleteView(DeleteView):
+    model = Trip
+    success_url = reverse_lazy('trip_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['trips'] = Trip.objects.filter(owner=self.request.user)
+        return context
     
